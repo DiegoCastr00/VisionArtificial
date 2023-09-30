@@ -1,6 +1,6 @@
 import random
 
-def label_components(imagen):
+def etiquetas_c(imagen):
     def encontrar_raiz(etiqueta):
         raiz = etiqueta
         while padre[raiz] != raiz:
