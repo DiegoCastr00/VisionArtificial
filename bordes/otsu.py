@@ -1,4 +1,5 @@
 import numpy as np
+import thresholding
 def thresholdOtsu(img): 
     hist = np.zeros(256)
     for row in range(img.shape[0]):

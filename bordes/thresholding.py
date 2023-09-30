@@ -8,5 +8,4 @@ def thresholding(D, threshold):
                 thresholdImg[row][column] = 0
             else:
                 thresholdImg[row][column] = 1
-    
     return thresholdImg

@@ -1,4 +1,5 @@
 import numpy as np
+import thresholding
 def thresholdingGlobal(D, threshold): # 0 or 255 since the threshold
     upThreshold = []
     downThreshold = [] 
