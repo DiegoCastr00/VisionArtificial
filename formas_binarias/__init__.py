@@ -1,0 +1,1 @@
+from .componentes_conectados import etiquetas_c
