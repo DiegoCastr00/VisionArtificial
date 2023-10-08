@@ -2,8 +2,6 @@ import numpy as np
 from .thresholding import thresholding
 
 def thresholdOtsu(img): #min(weightB*VarianceB + weightF*VarianceF)
-    #Histogram
-    print('entro')
     hist = np.zeros(256)
     for row in range(img.shape[0]):
         for column in range(img.shape[1]):
