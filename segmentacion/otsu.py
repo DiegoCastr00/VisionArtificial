@@ -1,18 +1,13 @@
-import cv2
 import numpy as np
-import matplotlib.pyplot as plt
-import thresholding as th
-
-def rgb2gray(rgb):
-    return np.dot(rgb[..., :3], [0.299, 0.587, 0.114]).astype(np.uint8)
+from .thresholding import thresholding
 
 def thresholdOtsu(img): #min(weightB*VarianceB + weightF*VarianceF)
-    img = rgb2gray(img)
+    #Histogram
+    print('entro')
     hist = np.zeros(256)
     for row in range(img.shape[0]):
         for column in range(img.shape[1]):
             hist[img[row][column]] += 1
-    
     pixelesInImg = img.shape[0]*img.shape[1]
     WCVList = []
 
@@ -58,5 +53,5 @@ def thresholdOtsu(img): #min(weightB*VarianceB + weightF*VarianceF)
         WCVList.append(WCV)
         
     t = WCVList.index(min(WCVList))
-    imagen = th.thresholding(img,t)
-    return imagen #The rigth thresholda
+    imagen = thresholding(img,t)
+    return imagen #The rigth threshold
