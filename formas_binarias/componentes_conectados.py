@@ -49,9 +49,11 @@ def etiquetas_c(imagen):
                     nueva_e += 1
                 etiquetas[row][col] = raiz_es[raiz]
 
-    color = colores(imagen,etiquetas)
-    return color
+    color, numcolors = contar_colores300(imagen,etiquetas)
+    return color, numcolors
+
 #Colorear las imagenes en función de las etiquetas
+'''
 def colores(imagen, etiquetas):
     rows, cols = len(imagen), len(imagen[0])
     imagen_color = [[(0, 0, 0) for _ in range(cols)] for _ in range(rows)]
@@ -61,11 +63,40 @@ def colores(imagen, etiquetas):
         for j in range(cols):
             if etiquetas[i][j] not in colores and etiquetas[i][j] != 0:
                 colores[etiquetas[i][j]] = (
-                    # los colores se obtine de forma aleatoria
                     random.randint(0, 255),
                     random.randint(0, 255),
                     random.randint(0, 255)
                 )
             if etiquetas[i][j] != 0:
                 imagen_color[i][j] = colores[etiquetas[i][j]]
-    return imagen_color
+
+    numero_de_colores = len(colores)
+    return imagen_color, numero_de_colores'''
+    
+
+def contar_colores300(imagen, etiquetas):
+    rows, cols = len(imagen), len(imagen[0])
+    imagen_color = [[(0, 0, 0) for _ in range(cols)] for _ in range(rows)]
+
+    colores = [None] * (max(max(row) for row in etiquetas) + 1)
+    contador_colores = [0] * len(colores)
+
+    for i in range(rows):
+        for j in range(cols):
+            etiqueta = etiquetas[i][j]
+            if etiqueta != 0:
+                if colores[etiqueta] is None:
+                    colores[etiqueta] = (
+                        random.randint(0, 255),
+                        random.randint(0, 255),
+                        random.randint(0, 255)
+                    )
+                contador_colores[etiqueta] += 1
+
+            if etiqueta != 0:
+                imagen_color[i][j] = colores[etiqueta]
+
+    # Filtrar colores that were assigned to more than 400 pixels
+    colores_mas_de_300 = [colores[i] for i in range(len(colores)) if contador_colores[i] > 400]
+
+    return imagen_color, colores_mas_de_300
