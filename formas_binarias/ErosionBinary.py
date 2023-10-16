@@ -14,3 +14,8 @@ def ErosionBin(imagen_binaria, kernel):
                 resultado_erosion[i+1, j+1] = 1
     
     return resultado_erosion
+
+
+def detectar_bordes_binarios(imagen_binaria, k):
+    bordes = imagen_binaria - ErosionBin(imagen_binaria, k)
+    return bordes
