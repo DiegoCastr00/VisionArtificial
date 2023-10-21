@@ -119,7 +119,6 @@ def bettle(imgBinaria):
     start = primer1(imgBinaria)  # No se proporciona la función primer1, deberías reemplazarla por tu propia implementación
     print(start)
     currentP = start
-    chainResult = []
     border = [start]  # Se inicia con el primer punto en el borde
     result = np.zeros_like(imgBinaria)
     result[start] = 1
