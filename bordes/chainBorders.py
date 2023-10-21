@@ -14,7 +14,6 @@ def bettle(inicio, contorno):
         for direction in range(1, 9):
             x_next = xi + (direction % 3) - 1
             y_next = yi + (direction // 3) - 1
-            print(y_next, x_next)
             if 0 <= x_next < contorno.shape[1] and 0 <= y_next < contorno.shape[0]:
                 if contorno[y_next, x_next] == initial and visited[y_next, x_next] == 0:
                     contour_list.append((y_next, x_next))

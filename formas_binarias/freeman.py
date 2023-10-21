@@ -113,3 +113,51 @@ def FreemanChain(imgBinaria, conexion):
             elif cuadrante == 2:
                 diccActual = dicc1
     return chainResult, border
+
+
+def bettle(imgBinaria):
+    start = primer1(imgBinaria)  # No se proporciona la función primer1, deberías reemplazarla por tu propia implementación
+    print(start)
+    currentP = start
+    chainResult = []
+    border = [start]  # Se inicia con el primer punto en el borde
+    result = np.zeros_like(imgBinaria)
+    result[start] = 1
+    
+    movs1 = [(-1,0), (0,1), (1,0), (0, -1)]
+    movs3 = [(1,0), (0, -1), (-1,0), (0,1)]
+    
+    cuadrante = obtenerCuadrante(currentP, imgBinaria)
+    movsA = movs1.copy()
+    consecutive_empty_moves = 0
+    llego = False
+    while True:
+        added_to_chain = False
+        for mov in movsA:
+            next_mov = (currentP[0] + mov[0], currentP[1] + mov[1])
+            if 0 <= next_mov[0] < imgBinaria.shape[0] and 0 <= next_mov[1] < imgBinaria.shape[1]:
+                if imgBinaria[next_mov] == 1 and result[next_mov] != 0 and next_mov == start:
+                    print('forzamos termino ')
+                    llego = True
+                if imgBinaria[next_mov] == 1 and result[next_mov] == 0:
+                    border.append(next_mov)  # Agregar el punto al borde
+                    result[next_mov] = 1  # Marcar solo el punto en el borde en el resultado
+                    currentP = next_mov
+                    added_to_chain = True
+                    consecutive_empty_moves = 0
+                    break
+                else:
+                    consecutive_empty_moves += 1
+        if consecutive_empty_moves > 10 or llego:
+            break
+        else:
+            cuadrante = obtenerCuadrante(currentP, imgBinaria)
+            if cuadrante == 1:
+                movsA = movs1
+            elif cuadrante == 4:
+                movsA = movs3
+            elif cuadrante == 3:
+                movsA = movs3
+            elif cuadrante == 2:
+                movsA = movs1
+    return border
