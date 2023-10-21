@@ -160,3 +160,37 @@ def bettle(imgBinaria):
             elif cuadrante == 2:
                 movsA = movs1
     return border
+
+def minimum_mag(chainCode):
+    N = len(chainCode)
+    
+    minimo = 0
+    for d in chainCode:
+        minimo = minimo * 10 + d
+    
+    rotacion = chainCode
+
+    for i in range(1, N):
+        roCodigo = chainCode[i:] + chainCode[:i]
+        rotated_int = 0
+
+        for d in roCodigo:
+            rotated_int = rotated_int * 10 + d
+
+        if rotated_int < minimo:
+            minimo = rotated_int
+            rotacion = roCodigo
+
+    return rotacion
+
+
+
+def first_difference(chainCode, connectivity):
+    transform = []
+    N = len(chainCode)
+    for i in range(N - 1):
+        diff = (chainCode[i + 1] - chainCode[i]) % connectivity
+        transform.append(diff)
+    diff = (chainCode[0] - chainCode[-1]) % connectivity
+    transform.append(diff)
+    return transform

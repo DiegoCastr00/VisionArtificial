@@ -4,3 +4,5 @@ from .ErosionBinary import detectar_bordes_binarios
 from .freeman import FreemanChain
 from .freeman import primer1
 from .freeman import bettle
+from .freeman import minimum_mag
+from .freeman import first_difference
