@@ -44,11 +44,10 @@ class MDC():
         recFinal = recValues[0, :] - recValues[1, :]
         return recFinal
     
-    def getGraphics(self, data):
+    def getGraphicsConRecta(self, data):
         data = np.array(data)
         predictions = self.predict(data)
         recta = self.getRectas()
-        
         A = recta[0]
         B = recta[1]
         C = recta[2]
@@ -66,9 +65,9 @@ class MDC():
 
         for idx, class_label in enumerate(self.classes):
             class_data = data[predictions == class_label]
-            plt.scatter(class_data[:, 0], class_data[:, 1], label=f'Class {class_label}', marker=f'${idx}$', s=100)
+            plt.scatter(class_data[:, 0], class_data[:, 1], label=f'Clase {class_label}', marker=f'${idx}$', s=100)
             
-        plt.scatter(self.means[:, 0], self.means[:, 1], marker='X', s=100, color='black', label='Class Means')
+        plt.scatter(self.means[:, 0], self.means[:, 1], marker='X', s=100, color='black', label='Centroide')
 
         plt.xlim(np.min(data[:, 0]) - 1, np.max(data[:, 0]) + 1)
         plt.ylim(np.min(data[:, 1]) - 1, np.max(data[:, 1]) + 1)
@@ -76,7 +75,43 @@ class MDC():
         plt.axvline(0, color='black', linewidth=0.5)
         plt.grid(color='gray', linestyle='--', linewidth=0.5)
         plt.legend()
-        plt.title('MDC Predictions, Class Means, and Recta')
-        plt.xlabel('Feature 1')
-        plt.ylabel('Feature 2')
+        plt.title('MDC con Recta')
+        plt.xlabel('Caracteristica 1')
+        plt.ylabel('Caracteristica 2')
+        plt.show()
+        
+        
+    def getGraphics3D(self, data):
+        data = np.array(data)
+        print(data.shape)
+        predictions = self.predict(data)
+
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+
+        for idx, class_label in enumerate(self.classes):
+            class_data = data[predictions == class_label]
+            ax.scatter(class_data[:, 0], class_data[:, 1], class_data[:, 2], label=f'Clase {class_label}', marker=f'${idx}$', s=100)
+
+        ax.scatter(self.means[:, 0], self.means[:, 1], self.means[:, 2], marker='X', s=100, color='black', label='Centroide')
+
+        ax.set_title('MDC')
+        ax.set_xlabel('Caracteristica 1')
+        ax.set_ylabel('Caracteristica 2')
+        ax.set_zlabel('Caracteristica 3')
+        ax.legend()
+        plt.show()
+        
+        
+    def getGraphics(self, data):
+        data = np.array(data)
+        predictions = self.predict(data)
+        for idx, class_label in enumerate(self.classes):
+            class_data = data[predictions == class_label]
+            plt.scatter(class_data[:, 0], class_data[:, 1], label=f'Clase {class_label}', marker=f'${idx}$', s=100)
+        plt.scatter(self.means[:, 0], self.means[:, 1], marker='X', s=100, color='black', label='Centroide')
+        plt.title('MDC')
+        plt.xlabel('Caracteristica 1')
+        plt.ylabel('Caracteristica 2')
+        plt.legend()
         plt.show()
